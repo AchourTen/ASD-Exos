@@ -1,0 +1,61 @@
+#include <stdio.h>
+
+typedef struct {
+    float real; 
+    float imag;
+} Complex;
+
+// Fonction pour saisir un nombre complexe
+void saisie(Complex *z) {
+    printf("Saisir la partie réelle : ");
+    scanf("%f", &(z->real));
+    printf("Saisir la partie imaginaire : ");
+    scanf("%f", &(z->imag));
+}
+
+// Fonction pour afficher un nombre complexe
+void affiche(Complex z) {
+    printf("%.2f + %.2fi\n", z.real, z.imag);
+}
+
+// Fonction pour additionner deux nombres complexes
+Complex addition(Complex z1, Complex z2) {
+    Complex sum;
+    sum.real = z1.real + z2.real;
+    sum.imag = z1.imag + z2.imag;
+    return sum;
+}
+
+// Fonction pour multiplier deux nombres complexes
+Complex produit(Complex z1, Complex z2) {
+    Complex product;
+    product.real = (z1.real * z2.real) - (z1.imag * z2.imag);
+    product.imag = (z1.real * z2.imag) + (z1.imag * z2.real);
+    return product;
+}
+
+int main() {
+    Complex z1, z2, sum, product;
+
+    printf("Saisir le premier nombre complexe Z1 :\n");
+    saisie(&z1);
+
+    printf("Saisir le deuxième nombre complexe Z2 :\n");
+    saisie(&z2);
+
+    printf("Le premier nombre complexe Z1 : ");
+    affiche(z1);
+
+    printf("Le deuxième nombre complexe Z2 : ");
+    affiche(z2);
+
+    sum = addition(z1, z2);
+    printf("La somme des deux nombres complexes : ");
+    affiche(sum);
+
+    product = produit(z1, z2);
+    printf("Le produit des deux nombres complexes : ");
+    affiche(product);
+
+    return 0;
+}
