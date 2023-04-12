@@ -1,0 +1,65 @@
+#include <stdio.h>
+
+//Q1 enregistrement TEMPS
+typedef struct {
+    int heure;
+    int minute;
+    int seconde;
+} TEMPS;
+
+// Q2 la somme de deux durées
+TEMPS sommeTemps(TEMPS t1, TEMPS t2) {
+    TEMPS t3;
+    int totalSecondes1 = t1.heure * 3600 + t1.minute * 60 + t1.seconde;
+    int totalSecondes2 = t2.heure * 3600 + t2.minute * 60 + t2.seconde;
+    int totalSecondes3 = totalSecondes1 + totalSecondes2;
+
+    // Conversion du total des secondes en heures, minutes et secondes
+    t3.heure = totalSecondes3 / 3600;
+    t3.minute = (totalSecondes3 % 3600) / 60;
+    t3.seconde = (totalSecondes3 % 3600) % 60;
+
+    return t3;
+}
+
+// Action paramétrée pour transformer un temps en secondes
+int transform(TEMPS t) {
+    int totalSecondes = t.heure * 3600 + t.minute * 60 + t.seconde;
+    return totalSecondes;
+}
+
+// Procédure pour décomposer un temps en secondes en un temps de type TEMPS
+void decompos(int secondes, TEMPS *t) {
+    t->heure = secondes / 3600;
+    t->minute = (secondes % 3600) / 60;
+    t->seconde = (secondes % 3600) % 60;
+}
+
+int main() {
+    TEMPS t1, t2, t3;
+    int secondes;
+
+    printf("Saisir le temps T1 (heure, minute, seconde) : ");
+    scanf("%d %d %d", &t1.heure, &t1.minute, &t1.seconde);
+
+    printf("Saisir le temps T2 (heure, minute, seconde) : ");
+    scanf("%d %d %d", &t2.heure, &t2.minute, &t2.seconde);
+
+    // Calcul de la somme des temps T1 et T2
+    t3 = sommeTemps(t1, t2);
+
+    printf("\nTemps T1 : %d heures %d minutes %d secondes\n", t1.heure, t1.minute, t1.seconde);
+    printf("Temps T2 : %d heures %d minutes %d secondes\n", t2.heure, t2.minute, t2.seconde);
+    printf("Somme des temps T1 et T2 : %d heures %d minutes %d secondes\n", t3.heure, t3.minute, t3.seconde);
+
+    printf("\nSaisir le temps en secondes : ");
+    scanf("%d", &secondes);
+
+    // Décomposition 
+    decompos(secondes, &t3);
+
+    printf("\nTemps en secondes : %d secondes\n", secondes);
+    printf("Temps decompose : %d heures %d minutes %d secondes\n", t3.heure, t3.minute, t3.seconde);
+
+    return 0;
+}
