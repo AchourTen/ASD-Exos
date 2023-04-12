@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    int id;
+    char nom[50];
+    char prenom[50];
+    int age;
+    float moyenne;
+    char resultat[4]; // ADM ou AJN
+} Etudiant;
+
+int main() {
+    int MAX_ETUDIANTS = 100;
+    Etudiant etudiants[MAX_ETUDIANTS];
+    int n;
+    float moyenneGenerale = 0;
+
+    printf("Combien d'etudiants (<= 100) : ");
+    scanf("%d", &n);
+
+    // Saisie des informations
+    for (int i = 0; i < n; i++) {
+        printf("\nSaisie des informations pour l'etudiant #%d :\n", i + 1);
+        printf("Identifiant : ");
+        scanf("%d", &etudiants[i].id);
+        printf("Nom : ");
+        scanf("%s", etudiants[i].nom);
+        printf("Prenom : ");
+        scanf("%s", etudiants[i].prenom);
+        printf("Age : ");
+        scanf("%d", &etudiants[i].age);
+        printf("Moyenne : ");
+        scanf("%f", &etudiants[i].moyenne);
+
+        // Détermination du résultat 
+        if (etudiants[i].moyenne < 10) {
+            strcpy(etudiants[i].resultat, "AJN");
+        } else {
+            strcpy(etudiants[i].resultat, "ADM");
+        }
+
+        moyenneGenerale += etudiants[i].moyenne;
+    }
+
+    moyenneGenerale /= n;
+
+    // Affichage des informations 
+    printf("\nInformations sur les etudiants :\n");
+    for (int i = 0; i < n; i++) {
+        printf("\nEtudiant #%d :\n", i + 1);
+        printf("Identifiant : %d\n", etudiants[i].id);
+        printf("Nom : %s\n", etudiants[i].nom);
+        printf("Prenom : %s\n", etudiants[i].prenom);
+        printf("Age : %d\n", etudiants[i].age);
+        printf("Moyenne : %.2f\n", etudiants[i].moyenne);
+        printf("Resultat : %s\n", etudiants[i].resultat);
+    }
+
+    // moyenne générale
+    printf("\nMoyenne Generale : %.2f\n", moyenneGenerale);
+
+    return 0;
+}
