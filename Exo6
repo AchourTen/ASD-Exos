@@ -1,0 +1,64 @@
+typedef struct {
+    char nom[50];
+    char prenom[50];
+    int dejeuner; // 0 pour non, 1 pour oui
+    int diner; // 0 pour non, 1 pour oui
+    int hotel; // 0 pour pas d'hôtel, 2 pour 2 étoiles, 3 pour 3 étoiles
+    int seul; // 0 pour non, 1 pour oui
+} Participant;
+
+
+
+
+void liste2Etoiles(Participant TabPart[], int nbParticipants) {
+    printf("Liste des participants ayant réservé un hôtel 2 étoiles :\n");
+    for (int i = 0; i < nbParticipants; i++) {
+        if (TabPart[i].hotel == 2) {
+            printf("%s %s\n", TabPart[i].nom, TabPart[i].prenom);
+        }
+    }
+}
+
+
+int NbDej(Participant TabPart[], int nbParticipants) {
+    int nbDej = 0;
+    for (int i = 0; i < nbParticipants; i++) {
+        if (TabPart[i].dejeuner) {
+            nbDej++;
+            if (!TabPart[i].seul) {
+                nbDej++; // si accompagné, il faut compter 2 déjeuners
+            }
+        }
+    }
+    return nbDej;
+}
+
+
+int Montant(Participant p) {
+    int montant = 0;
+    if (p.dejeuner) {
+        montant += 1500;
+        if (!p.seul) {
+            montant += 1500; // si accompagné, il faut compter 2 déjeuners
+        }
+    }
+    if (p.diner) {
+        montant += 3500;
+        if (!p.seul) {
+            montant += 3500; // si accompagné, il faut compter 2 dîners
+        }
+    }
+    if (p.hotel == 2) {
+        montant += 7500;
+        if (!p.seul) {
+            montant += 7500; // si accompagné, il faut compter 2 nuits
+        }
+    }
+    else if (p.hotel == 3) {
+        montant += 10000;
+        if (!p.seul) {
+            montant += 10000; // si accompagné, il faut compter 2 nuits
+        }
+    }
+    return montant;
+}
