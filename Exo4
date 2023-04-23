@@ -1,0 +1,72 @@
+#include <stdio.h>
+
+struct temps {
+    int heur;
+    int min;
+    int secs;
+};
+
+struct temps lecture() {
+    struct temps t;
+    printf("entrez le temps (hh:mm:ss):\n");
+    scanf("%d :%d :%d", &t.heur, &t.min, &t.secs);
+    return t;
+}
+
+void affiche(struct temps t) {
+    printf(" %d:%d:%d\n ", t.heur, t.min, t.secs);
+}
+//en trasforme de la forme HH:mm:ss en sec , on calcule la somme en la stock dans diff ,on retronsforme de sec en h:mm:ss
+struct temps diff(struct temps start, struct temps end) {
+    int debut, fin, diffs;
+    struct temps diff;
+
+    debut = start.heur * 3600 + start.min * 60 + start.secs;
+
+    fin = end.heur * 3600 + end.min * 60 + end.secs;
+
+    diffs = fin - debut;
+
+    diff.heur = diffs / 3600;
+    diff.min = (diffs % 3600) / 60;
+    diff.secs = diffs % 60;
+
+    return diff;
+}
+//decompose
+int en_sec(struct temps t) {
+    return t.heur*3600+t.min*60+t.secs;
+}
+//on recupper la soustraction des sec entre les deux temp et on la re trasforme de sec a hh:mm:ss
+struct temps en_temps(int s) {
+    struct temps t;
+    t.heur = s / 3600;
+    t.min = (s % 3600) / 60;
+    t.secs = s % 60;
+    return t;
+}
+/*   Dans le main ,on appelle la fonction "lecture" pour demander d'entrer deux temps satrt/end
+    On calcule la différence entre les deux temps avec diff
+    on stocke le résultat dans une variable diff
+    on affiche  la différence en appelant la fonction affiche 
+    on calcule le temps de différence en secondes avecla fonction en_secondes
+    on stocke le résultat dans diffensec
+    on affiche la différenceen sec avec affiche 
+*/
+
+int main() {
+    struct temps start, end, diffenforme;
+    int diffensec;
+
+    start = lecture();
+    end = lecture();
+    diffenforme = en_temps(en_sec(end) - en_sec(start));
+    
+    printf("la différence est de : ");
+    affiche(diffenforme);
+    diffensec = en_sec(diffenforme);
+
+    printf("la différence en secondes est de : %d\n", diffensec);
+
+    return 0;
+}
